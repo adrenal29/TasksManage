@@ -2,19 +2,19 @@ import { useState, useEffect } from "react";
 import { filterTasks, sortTasks } from "@/utils/Task";
 import SearchBar from "@/components/SearchBar";
 import Tasks from "@/components/Tasks";
-import Topbar from "@/components/globals/Topbar"; 
+import Topbar from "@/components/globals/Topbar";
 import TodaysTasks from "@/components/helper/TodaysTasks";
 
 export default function Home({ initialTasks }) {
   const [tasks, setTasks] = useState(initialTasks);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filter, setFilter] = useState('all'); 
+  const [filter, setFilter] = useState('all');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const storedTasks = localStorage.getItem('tasks');
     if (storedTasks) {
-      setTasks(storedTasks !== "undefined" ? JSON.parse(storedTasks) : []);
+      setTasks(JSON.parse(storedTasks));
     }
     setIsLoading(false);
   }, []);
@@ -82,9 +82,16 @@ export default function Home({ initialTasks }) {
 }
 
 export async function getServerSideProps() {
+  const welcomeTask = {
+    id: "welcome-task", // Unique ID for the welcome task
+    title: "Welcome to  Task Manager!",
+    description: "This is a default task to get you started. Feel free to add, update, or delete tasks.",
+    completed: false,
+    priority:"low"
+  };
   return {
     props: {
-      initialTasks: []
+      initialTasks: [welcomeTask]
     }
   };
 }

@@ -1,11 +1,13 @@
 export const sortTasks = (tasks = []) => {
-    const priorityOrder = { high: 0, medium: 1, low: 2 };
-    return tasks.sort((a, b) => {
-        if (a.completed !== b.completed) {
-            return a.completed ? 1 : -1;
-        }
-        return priorityOrder[a.priority] - priorityOrder[b.priority];
-    });
+    const priorityList = { high: 0, medium: 1, low: 2 };
+
+
+    const incompleteTasks = tasks.filter(task => !task.completed);
+    const completedTasks = tasks.filter(task => task.completed);
+
+    incompleteTasks.sort((a, b) => priorityList[a.priority] - priorityList[b.priority]);
+
+    return [...incompleteTasks, ...completedTasks];
 };
 
 export const filterTasks = (tasks = [], searchTerm = '', filter = 'all') => {
@@ -13,7 +15,7 @@ export const filterTasks = (tasks = [], searchTerm = '', filter = 'all') => {
         .filter(task => {
             if (filter === 'open') return !task.completed;
             if (filter === 'closed') return task.completed;
-            return true; 
+            return true;
         })
         .filter(task => {
 

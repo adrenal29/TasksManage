@@ -69,7 +69,6 @@ const formStyle = {
   margin: "6px auto",
   padding: "20px",
   borderRadius: "8px",
-  backgroundColor: "#f9f9f9",
 };
 
 const inputStyle = {

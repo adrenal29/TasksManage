@@ -1,12 +1,12 @@
 export const sortTasks = (tasks = []) => {
-    const priorityList = { high: 0, medium: 1, low: 2 };
-
+    const priorityList = { low: 0, medium: 1, high: 2 };
 
     const incompleteTasks = tasks.filter(task => !task.completed);
     const completedTasks = tasks.filter(task => task.completed);
 
-    incompleteTasks.sort((a, b) => priorityList[a.priority] - priorityList[b.priority]);
-
+    incompleteTasks.sort((a, b) => priorityList[b.priority] - priorityList[a.priority]);
+    completedTasks.sort((a, b) => priorityList[b.priority] - priorityList[a.priority]);
+    
     return [...incompleteTasks, ...completedTasks];
 };
 

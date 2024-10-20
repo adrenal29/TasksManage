@@ -48,7 +48,6 @@ export default function Home({ initialTasks }) {
     );
   };
 
-  // Use the single filterTasks function to handle both filtering and search
   const filteredTasks = filterTasks(tasks, searchTerm, filter);
   const finalTasks = sortTasks(filteredTasks)
 
@@ -82,8 +81,9 @@ export default function Home({ initialTasks }) {
 }
 
 export async function getServerSideProps() {
+  //Default task to show initial render if user visits first time 
   const welcomeTask = {
-    id: "welcome-task", // Unique ID for the welcome task
+    id: "welcome-task",
     title: "Welcome to  Task Manager!",
     description: "This is a default task to get you started. Feel free to add, update, or delete tasks.",
     completed: false,
